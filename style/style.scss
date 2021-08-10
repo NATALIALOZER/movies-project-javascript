@@ -54,12 +54,16 @@ body{
     }
     .pageButton {
         border: 1px solid gray;
-        padding: 5px 10px;
+        width: 60px;
+        height: 30px;
+        text-align: center;
     }
     .clickPageNumber {
         border: 1px solid gray;
         color: gray;
-        padding: 5px 10px;
+        width: 30px;
+        height: 30px;
+        text-align: center;
     }
     .pagination-block {
         justify-content: center;

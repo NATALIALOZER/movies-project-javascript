@@ -2,18 +2,16 @@
     "use strict";
 
     function Pagination() {
-      // sendRequest()
-      // const moviesInfo = objJson
-      // console.log(moviesInfo);
 
       const numOfFilms = 1080;
-    //   Получаем button по классу из дом
+    //  getting buttons from DOM
       const firstButton = document.getElementById('button_first');
       const prevButton = document.getElementById('button_prev');
       const nextButton = document.getElementById('button_next');
       const lastButton = document.getElementById('button_last');
       const clickPageNumber = document.querySelectorAll('.clickPageNumber');
-      
+     
+     
       let current_page = 1;
       let records_per_page = 20; 
       
@@ -25,6 +23,7 @@
           addEventListeners();
      }
       
+    //catch paggination buttons click
       let addEventListeners = function() {
           firstButton.addEventListener('click', firstPage);
           prevButton.addEventListener('click', prevPage);
@@ -36,7 +35,7 @@
           let page_number = document.getElementById('page_number').getElementsByClassName('clickPageNumber'); 
       }  
       
-    //  изменение прозрачности кнопок в зависимости от выбраной странницы
+    //  change button opacity deppending on choosen page
       let checkButtonOpacity = function() {
         current_page == 1 ? firstButton.classList.add('opacity') : firstButton.classList.remove('opacity');
         current_page == 1 ? prevButton.classList.add('opacity') : prevButton.classList.remove('opacity');
@@ -45,34 +44,34 @@
       }
 
       let changePage = async function(page) {
-          const listingTable = document.getElementById('listingTable');
+        const listingTable = document.getElementById('listingTable');
 
-          if (page < 1) {
-              page = 1;
-          } 
-          if (page > (numPages() -1)) {
-              page = numPages();
-          }
-       
-          
-          let response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=ebea8cfca72fdff8d2624ad7bbf78e4c&language=en-US&page=${current_page}`)
+        if (page < 1) {
+            page = 1;
+        } 
+        if (page > (numPages() -1)) {
+            page = numPages();
+        }
+      
+        //reciving data from movie database depending on choosen page
+        let response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=ebea8cfca72fdff8d2624ad7bbf78e4c&language=en-US&page=${current_page}`)
 
-          let content = await response.json();
-          content = content.results
-          // console.log(content)
-          let key;
+        let content = await response.json();
+        content = content.results
+
+        //recives poster from each object and create img tag and push it to html
+        let key;
+        
+        for (key in content){
           
-          for (key in content){
-            
-            listingTable.innerHTML = "";
-            let poster_url = 'http://image.tmdb.org/t/p/w342' + content[key].poster_path
-            console.log(content[key].poster_path)
-            for(var i = 0; i < records_per_page && i < content.length; i++) {
-              listingTable.innerHTML += `<img class='objectBlock' src='http://image.tmdb.org/t/p/w342${content[i].poster_path}'></div>`;
-            }
-            checkButtonOpacity();
-            selectedPage();
+          listingTable.innerHTML = "";
+
+          for(var i = 0; i < records_per_page && i < content.length; i++) {
+            listingTable.innerHTML += `<img class='objectBlock' src='http://image.tmdb.org/t/p/w342${content[i].poster_path}'></div>`;
           }
+          checkButtonOpacity();
+          selectedPage();
+        }
       }
 
     //   переход на первую, если она не выбрана
@@ -116,16 +115,18 @@
           });
       }
 
-    //   change this function, the last page number should be "..."
+    //   need to change this function, the last page number should be "..."
       let pageNumbers = function() {
           let pageNumber = document.getElementById('page_number');
               pageNumber.innerHTML = "";
           
+            
           for(let i = 1; i < numPages() + 1; i++) {
               pageNumber.innerHTML += "<span class='clickPageNumber'>" + i + "</span>";
           }
       }
 
+      //calculating num of pages depend on movies numbers and needed amount on the one page
       let numPages = function() {
           return Math.ceil(numOfFilms / records_per_page);  
       }
