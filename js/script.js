@@ -1,59 +1,45 @@
+
+
+
 (function() {
     "use strict";
 
-    function Pagination() {
+
+    // const requestURL =
+    // "https://api.themoviedb.org/3/movie/now_playing?api_key=ebea8cfca72fdff8d2624ad7bbf78e4c&language=en-US&page=1";
+
+
+    // async function sendRequest(url) {
+    //   let response = await fetch(url)
+    //   let content = await response.json();
+    //   return content.results
+    // };
+
+    // // var OBj = sendRequest(requestURL).then((data) => data.results)
+
+    // console.log(sendRequest(requestURL).then((f)=>console.log(f)))
+
+    // const objJson = [];
+    // async function sendRequest() {
+    //   let response = await fetch("https://api.themoviedb.org/3/movie/now_playing?api_key=ebea8cfca72fdff8d2624ad7bbf78e4c&language=en-US&page=1")
+    //   let content = await response.json();
       
-       const objJson = [
-          { adName: "adName 1"},
-          { adName: "adName 2"},
-          { adName: "adName 3"},
-          { adName: "adName 4"},
-          { adName: "adName 5"},
-          { adName: "adName 6"},
-          { adName: "adName 7"},
-          { adName: "adName 8"},
-          { adName: "adName 9"},
-          { adName: "adName 10"},
-          { adName: "adName 11"},
-          { adName: "adName 12"},
-          { adName: "adName 13"},
-          { adName: "adName 14"},
-          { adName: "adName 15"},
-          { adName: "adName 16"},
-          { adName: "adName 17"},
-          { adName: "adName 18"},
-          { adName: "adName 19"},
-          { adName: "adName 20"},
-          { adName: "adName 21"},
-          { adName: "adName 22"},
-          { adName: "adName 23"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"},
-          { adName: "adName n"}
-      ];
+    //   content = content.results
+    //   let key;
+    //   for (key in content){
+    //     objJson.push(content[key])
+    //   }
+    //   return objJson
+    // }
 
+    
 
+    function Pagination() {
+      // sendRequest()
+      // const moviesInfo = objJson
+      // console.log(moviesInfo);
+
+      const objJson = [];
     //   Получаем button по классу из дом
       const firstButton = document.getElementById('button_first');
       const prevButton = document.getElementById('button_prev');
@@ -91,7 +77,7 @@
         current_page == numPages() ? lastButton.classList.add('opacity') : lastButton.classList.remove('opacity');
       }
 
-      let changePage = function(page) {
+      let changePage = async function(page) {
           const listingTable = document.getElementById('listingTable');
 
           if (page < 1) {
@@ -101,10 +87,29 @@
               page = numPages();
           }
        
-          listingTable.innerHTML = "";
+          
+          let response = await fetch("https://api.themoviedb.org/3/movie/now_playing?api_key=ebea8cfca72fdff8d2624ad7bbf78e4c&language=en-US&page=1")
 
-          for(var i = (page -1) * records_per_page; i < (page * records_per_page) && i < objJson.length; i++) {
-              listingTable.innerHTML += "<div class='objectBlock'>" + objJson[i].adName + "</div>";
+          let content = await response.json();
+          content = content.results
+          // console.log(content)
+          let key;
+          
+          for (key in content){
+            
+            listingTable.innerHTML = "";
+
+            let poster_url = 'http://image.tmdb.org/t/p/w342' + content[key].poster_path
+            console.log(poster_url)
+
+            listingTable.innerHTML += `<img class='objectBlock' src='${poster_url}'>`+"</img>";
+            console.log(listingTable)
+
+            // for(var i = (page -1) * records_per_page; i < (page * records_per_page) && i < content.length; i++) {
+              
+            //   listingTable.innerHTML += `<img class='objectBlock' src='${poster_url}'>`+"</img>";
+
+            // }
           }
           checkButtonOpacity();
           selectedPage();
