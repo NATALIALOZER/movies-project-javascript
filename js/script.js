@@ -1,39 +1,7 @@
-
-
-
 (function() {
     "use strict";
 
-
-    // const requestURL =
-    // "https://api.themoviedb.org/3/movie/now_playing?api_key=ebea8cfca72fdff8d2624ad7bbf78e4c&language=en-US&page=1";
-
-
-    // async function sendRequest(url) {
-    //   let response = await fetch(url)
-    //   let content = await response.json();
-    //   return content.results
-    // };
-
-    // // var OBj = sendRequest(requestURL).then((data) => data.results)
-
-    // console.log(sendRequest(requestURL).then((f)=>console.log(f)))
-
-    // const objJson = [];
-    // async function sendRequest() {
-    //   let response = await fetch("https://api.themoviedb.org/3/movie/now_playing?api_key=ebea8cfca72fdff8d2624ad7bbf78e4c&language=en-US&page=1")
-    //   let content = await response.json();
-      
-    //   content = content.results
-    //   let key;
-    //   for (key in content){
-    //     objJson.push(content[key])
-    //   }
-    //   return objJson
-    // }
-
-    
-
+  
     function Pagination() {
       // sendRequest()
       // const moviesInfo = objJson
