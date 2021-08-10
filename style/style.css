@@ -41,11 +41,9 @@ body {
 }
 .main .pagination .tableList .objectBlock {
   position: relative;
-  border-radius: 20px;
   max-width: 342px;
   min-width: 342px;
   height: 440px;
-  background-color: #474D59;
   margin: 10px 5px;
 }
 .main .pageButton {

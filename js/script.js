@@ -1,13 +1,12 @@
 (function() {
     "use strict";
 
-  
     function Pagination() {
       // sendRequest()
       // const moviesInfo = objJson
       // console.log(moviesInfo);
 
-      const objJson = [];
+      const numOfFilms = 1080;
     //   Получаем button по классу из дом
       const firstButton = document.getElementById('button_first');
       const prevButton = document.getElementById('button_prev');
@@ -56,7 +55,7 @@
           }
        
           
-          let response = await fetch("https://api.themoviedb.org/3/movie/now_playing?api_key=ebea8cfca72fdff8d2624ad7bbf78e4c&language=en-US&page=1")
+          let response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=ebea8cfca72fdff8d2624ad7bbf78e4c&language=en-US&page=${current_page}`)
 
           let content = await response.json();
           content = content.results
@@ -66,21 +65,14 @@
           for (key in content){
             
             listingTable.innerHTML = "";
-
             let poster_url = 'http://image.tmdb.org/t/p/w342' + content[key].poster_path
-            console.log(poster_url)
-
-            listingTable.innerHTML += `<img class='objectBlock' src='${poster_url}'>`+"</img>";
-            console.log(listingTable)
-
-            // for(var i = (page -1) * records_per_page; i < (page * records_per_page) && i < content.length; i++) {
-              
-            //   listingTable.innerHTML += `<img class='objectBlock' src='${poster_url}'>`+"</img>";
-
-            // }
+            console.log(content[key].poster_path)
+            for(var i = 0; i < records_per_page && i < content.length; i++) {
+              listingTable.innerHTML += `<img class='objectBlock' src='http://image.tmdb.org/t/p/w342${content[i].poster_path}'></div>`;
+            }
+            checkButtonOpacity();
+            selectedPage();
           }
-          checkButtonOpacity();
-          selectedPage();
       }
 
     //   переход на первую, если она не выбрана
@@ -135,7 +127,7 @@
       }
 
       let numPages = function() {
-          return Math.ceil(objJson.length / records_per_page);  
+          return Math.ceil(numOfFilms / records_per_page);  
       }
    }
   let pagination = new Pagination();
