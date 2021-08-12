@@ -18,6 +18,8 @@
       pageNumbers(1);
       selectedPage();
       clickPage();
+      clickPoster();
+      closeDetailsModal();
       addEventListeners();
     };
 
@@ -63,23 +65,23 @@
       );
       let content = await response.json();
       content = content.results;
+      console.log(content)
       let key;
 
       for (key in content) {
         listOfMovies.innerHTML = "";
         for (var i = 0; i < records_per_page && i < content.length; i++) {
           if(content[i].poster_path){
-            listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' src='http://image.tmdb.org/t/p/w342${content[i].poster_path}'></div>`
+            listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' id='${content[i].id}' src='http://image.tmdb.org/t/p/w342${content[i].poster_path}'></img><div style="display:none"><h2>${content[i].original_title}</h2><p>Score: ${content[i].vote_average}</p><p>Rating: ${content[i].adult}</p><p>Release Date: ${content[i].release_date}</p><hr><p>${content[i].overview}</p><hr></div>`
           } else {
             console.log('NO POSTER')
-            listOfMovies.innerHTML += "<img class='objectBlock col-5 col-md-12' src='./images/no-image.jpg'></div>"
+            listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' id='${content[i].id}' src='./images/no-image.jpg'></img><div style="display:none"><h2>${content[i].original_title}</h2><p>Score: ${content[i].vote_average}</p><p>Rating: ${content[i].adult}</p><p>Release Date: ${content[i].release_date}</p><hr><p>${content[i].overview}</p><hr></div>`
           }
         }
         checkButtonOpacity();
         selectedPage();
       }
     };
-
 
     let clickPage = function () {
       document.addEventListener("click", function (e) {
@@ -91,7 +93,7 @@
             current_page = e.target.textContent;
           }
           changePage(current_page);
-          pageNumbers(current_page)
+          pageNumbers(current_page);
         }
       });
     };
@@ -164,6 +166,43 @@
     let numPages = function () {
       return Math.ceil(films_number / records_per_page);
     };
+
+    let clickPoster = function () {
+      document.addEventListener("click", function (e) {
+        if (
+          e.target.nodeName == "IMG" &&
+          e.target.classList.contains("objectBlock")
+        ) {
+          // console.log(e.target,e.target.id,e.target.nextSibling)
+          openDetailsModal(e.target,e.target.id,e.target.nextSibling);
+        }
+      });
+    }
+
+    let openDetailsModal = function (poster, id, movie_info) {
+      var modal = document.getElementById("details-modal");
+      let posterBox = document.getElementById("poster-box");
+      // var backToListbtn = document.getElementById("back-to-list");
+      modal.style.display = "flex";
+      // posterBox.innerHTML += нужно как-то расспарсить HTML обьект!!!!!!!!!!!!
+
+      console.log(poster)
+    }
+
+    let closeDetailsModal = function () {
+      document.addEventListener("click", function (e) {
+        if (
+          e.target.nodeName == "BUTTON" &&
+          e.target.classList.contains("navigation__back-to-list")
+        ) {
+          let modal = document.getElementById("details-modal");
+          modal.style.display = "none";
+          console.log('close')
+        }
+      });
+    }
+
+
   }
   let pagination = new Pagination();
   pagination.init();

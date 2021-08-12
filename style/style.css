@@ -28,6 +28,12 @@ a:hover {
   color: rgba(255, 255, 255, 0.835);
 }
 
+hr {
+  size: 2px;
+  width: 100%;
+  color: white;
+}
+
 .header {
   font-size: 18px;
   font-weight: 500;
@@ -197,8 +203,7 @@ a:hover {
 .movie-details-modal {
   background-color: #474D59;
   opacity: 90%;
-  display: flex;
-  top: 79px;
+  padding-top: 79px;
 }
 .movie-details-modal .details-modal-inner {
   padding: 30px 20px;
@@ -250,11 +255,6 @@ a:hover {
   margin-left: 5%;
   display: flex;
   flex-direction: column;
-  color: white;
-}
-.movie-details-modal .details-modal-inner .details__movie-info hr {
-  size: 2px;
-  width: 100%;
   color: white;
 }
 .movie-details-modal .details-modal-inner .details__movie-info .add-to-favorites {

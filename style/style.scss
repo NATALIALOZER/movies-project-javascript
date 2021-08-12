@@ -27,6 +27,12 @@ a:hover{
     color: rgba(255, 255, 255, 0.835);
 }
 
+hr{
+    size: 2px;
+    width: 100%;
+    color: white
+}
+
 .header{
     font-size: 18px;
     font-weight: 500;
@@ -210,8 +216,8 @@ and (max-device-width: 720px){
 .movie-details-modal{
     background-color: #474D59;
     opacity: 90%;
-    display: flex;
-    top: 79px; 
+    // display: flex;
+    padding-top: 79px;
     .details-modal-inner{
         padding: 30px 20px;
         .navigation{
@@ -259,11 +265,7 @@ and (max-device-width: 720px){
                 display: flex;
                 flex-direction: column;
                 color: white;
-                hr{
-                    size: 2px   ;
-                    width: 100%;
-                    color: white
-                }
+                
                 .add-to-favorites{
                     background-color: transparent;
                     color: #fff;
