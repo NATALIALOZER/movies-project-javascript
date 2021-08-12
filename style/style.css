@@ -36,6 +36,7 @@ a:hover {
   height: auto;
   color: white;
   padding: 20px 0;
+  z-index: 1;
 }
 .header__inner {
   display: flex;
@@ -192,6 +193,94 @@ a:hover {
   .header .dropdown:checked ~ ul.dropdown-content {
     border-radius: 0;
   }
+}
+.movie-details-modal {
+  background-color: #474D59;
+  opacity: 90%;
+  display: flex;
+  top: 79px;
+}
+.movie-details-modal .details-modal-inner {
+  padding: 30px 20px;
+}
+.movie-details-modal .details-modal-inner .navigation {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.movie-details-modal .details-modal-inner .navigation__back-to-list {
+  width: 250px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: #fff;
+  background-color: transparent;
+}
+.movie-details-modal .details-modal-inner .navigation__next-movie {
+  width: 250px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: #fff;
+  background-color: transparent;
+}
+.movie-details-modal .details-modal-inner .navigation__next-movie img {
+  transform: rotate(0.5turn);
+}
+.movie-details-modal .details-modal-inner .details {
+  display: flex;
+  justify-content: center;
+  margin-top: 120px;
+}
+.movie-details-modal .details-modal-inner .details__poster {
+  width: 342px;
+  height: 440px;
+  background-color: turquoise;
+  border-radius: 20px;
+}
+.movie-details-modal .details-modal-inner .details__movie-info {
+  margin-left: 5%;
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+.movie-details-modal .details-modal-inner .details__movie-info hr {
+  size: 2px;
+  width: 100%;
+  color: white;
+}
+.movie-details-modal .details-modal-inner .details__movie-info .add-to-favorites {
+  background-color: transparent;
+  color: #fff;
+  opacity: 80%;
+  align-self: flex-end;
+}
+.movie-details-modal .details-modal-inner .details__movie-info .movie-title {
+  font-size: 36px;
+}
+.movie-details-modal .details-modal-inner .details__movie-info .movie-ratings {
+  display: flex;
+  flex-direction: row;
+  font-weight: 400;
+  font-size: 24px;
+  margin: 20px 0;
+  justify-content: space-between;
+}
+.movie-details-modal .details-modal-inner .details__movie-info .movie-ratings span {
+  border-right: solid grey 2px;
+  padding-right: 25px;
+}
+.movie-details-modal .details-modal-inner .details__movie-info .movie-description {
+  font-weight: 400;
+  font-size: 18px;
 }
 
 /*# sourceMappingURL=style.css.map */

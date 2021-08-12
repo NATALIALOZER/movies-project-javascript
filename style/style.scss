@@ -35,6 +35,7 @@ a:hover{
     height: auto;
     color: white;
     padding: 20px 0;
+    z-index: 1;
     &__inner{
         display: flex;
         justify-content: space-between;
@@ -203,4 +204,92 @@ and (max-device-width: 720px){
             border-radius: 0;
         }
     }
+}
+
+
+.movie-details-modal{
+    background-color: #474D59;
+    opacity: 90%;
+    display: flex;
+    top: 79px; 
+    .details-modal-inner{
+        padding: 30px 20px;
+        .navigation{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            &__back-to-list{
+                width: 250px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px;
+                font-family: 'Roboto', sans-serif;
+                font-weight: 400;
+                font-size: 18px;
+                color: #fff;
+                background-color: transparent;
+            }
+            &__next-movie{
+                width: 250px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px;
+                font-family: 'Roboto', sans-serif;
+                font-weight: 400;
+                font-size: 18px;
+                color: #fff;
+                background-color: transparent;
+                img{transform: rotate(0.5turn);}
+            }   
+        }
+        .details{
+            display: flex;
+            justify-content: center;
+            margin-top: 120px;
+            &__poster{
+                width: 342px;
+                height: 440px;
+                background-color: turquoise;
+                border-radius: 20px;
+            }
+            &__movie-info{
+                margin-left: 5%;
+                display: flex;
+                flex-direction: column;
+                color: white;
+                hr{
+                    size: 2px   ;
+                    width: 100%;
+                    color: white
+                }
+                .add-to-favorites{
+                    background-color: transparent;
+                    color: #fff;
+                    opacity: 80%;
+                    align-self: flex-end;
+                }
+                .movie-title{
+                    font-size: 36px;
+                }
+                .movie-ratings{
+                    display: flex;
+                    flex-direction: row;
+                    font-weight: 400;
+                    font-size: 24px;
+                    margin: 20px 0;
+                    justify-content: space-between;
+                    span{
+                        border-right: solid grey 2px;
+                        padding-right: 25px;
+                    }
+                }
+                .movie-description{
+                    font-weight: 400;
+                    font-size: 18px;
+                }
+            }
+        }
+    }  
 }
