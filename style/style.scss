@@ -15,8 +15,17 @@ body{
 .container{
     max-width: 1440px;
     margin: 0 auto;
-    padding-top: 1rem;
     
+}
+
+a{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: white;
+}
+a:hover{
+    color: rgba(255, 255, 255, 0.835);
 }
 
 .header{
@@ -26,26 +35,63 @@ body{
     width: 100%;
     height: auto;
     color: white;
+    padding: 20px 0;
     &__inner{
         display: flex;
         justify-content: space-between;
         
     }
+
     &__logo{
         display: flex;
         justify-content: space-between;
         width: 100px;
         align-items: center;
-        margin-bottom: 15px;
     }
-    &__dropdown-list{
+    &__account{
+        display: flex;
         border: 1px solid whitesmoke;
         border-radius: 5px;
-        padding: 3px 10px 3px 3px;
-        margin: 5px 0 0 0;
+        padding: 5px;
+        width: 150px;
+
+    }
+
+    .dropdown {
+        position: relative;
+        display: none;
+        
+    }
+    .dropbtn {
+        background-color: transparent;
+        color: white;
+        font-size: 18px;
+        position: relative;
+        display: block;
+        cursor: pointer;
+        margin-left: 5px;
+    }
+    .dropdown-content{
+        display: none;
+        position: absolute;
+        margin-top: 40px;
+        margin-left: -5px;
+        padding:0;
+        width: 150px;
         li{
-            display: none;
+            list-style: none;
+            padding: 10px 0 20px 0;
+            
         }
+    }
+
+    .dropdown:checked~ul.dropdown-content {
+        display: flex;
+        flex-direction: column;
+       text-align: center;
+        background-color: #474D59;
+        border-radius: 5px;
+        z-index: 1;
     }
     
 }
