@@ -15,7 +15,6 @@ body{
 .container{
     max-width: 1440px;
     margin: 0 auto;
-    
 }
 
 a{
@@ -54,22 +53,25 @@ a:hover{
         border-radius: 5px;
         padding: 5px;
         width: 150px;
-
+        p{
+            padding: 0;
+            margin: 0;
+        }
     }
 
     .dropdown {
         position: relative;
         display: none;
-        
     }
     .dropbtn {
         background-color: transparent;
         color: white;
         font-size: 18px;
         position: relative;
-        display: block;
+        display: flex;
         cursor: pointer;
-        margin-left: 5px;
+        margin: 0;
+        align-items: center;
     }
     .dropdown-content{
         display: none;
@@ -96,45 +98,32 @@ a:hover{
     
 }
 
-.main{    
+.main{  
+    padding: 30px 0; 
     .pagination {
         width: 100%;
         height: auto;
         display: block;
-        // margin: 0 auto;
         position: relative;
-        // padding: 20px;
         .tableList {
             display: flex;
-            justify-content: center;    
+            justify-content: space-around;
+            margin: 0;
+            padding: 0; 
             .objectBlock {
                 position: relative;
-                // border-radius: 20px;
                 max-width: 342px;
-                min-width: 342px;
-                height: 440px;
-                // background-color: #474D59;
-                margin: 10px 5px;
+                // width: 342px;
+                min-width: 100px;
+                height: auto;
+                padding: 0;
+                margin: 10px 0;
+                border-radius: 30px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             }
         }
     }
-    .pageButton {
-        border: 1px solid gray;
-        width: 60px;
-        height: 30px;
-        text-align: center;
-        font-size: 18px;
-        font-weight: 400;
-        
-    }
-    .pageButton:first-child{
-        border-top-left-radius: 3px;
-        border-bottom-left-radius: 3px;
-    }
-    .pageButton:last-child{
-        border-top-right-radius: 3px;
-        border-bottom-right-radius: 3px;
-    }
+    
     .outline-none{
         font-size: 18px;
     }
@@ -145,7 +134,7 @@ a:hover{
         height: 30px;
         text-align: center;
         font-size: 18px;
-        font-weight: 400;
+        // font-weight: 400;
     }
     .pagination-block {
         justify-content: center;
@@ -153,6 +142,24 @@ a:hover{
         display: flex;
         margin-top: 50px;
         margin-bottom: 100px;
+        font-weight: 600;
+        .pageButton {
+            border: 1px solid gray;
+            width: 60px;
+            height: 30px;
+            text-align: center;
+            font-size: 18px;
+        }
+        .pageButton:first-child{
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            color: #42B596;
+        }
+        .pageButton:last-child{
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            color: #42B596;
+        }
     }
     .pagination-block span {
         display: inline-block;
@@ -162,6 +169,7 @@ a:hover{
     }
     .pagination-block span:hover {
         cursor: pointer;    
+        color: #42B596;
     }
     .opacity {
         opacity: 0;
@@ -171,5 +179,28 @@ a:hover{
         outline: none;
         user-select: none; 
     }   
-      
+}
+
+@media all and (min-device-width: 320px)
+and (max-device-width: 720px){
+    .header{
+        &__account{
+            width: auto;
+            p{
+                display: none;
+            }
+        }
+        .dropdown-content{
+            margin: 40px 0;
+            left:0;
+            width: 100%;
+            li{
+                list-style: none;
+                padding: 10px 0 20px 0;
+            }
+        }
+        .dropdown:checked~ul.dropdown-content {
+            border-radius: 0;
+        }
+    }
 }

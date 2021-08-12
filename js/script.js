@@ -21,7 +21,6 @@
       addEventListeners();
     };
 
-    //catch paggination buttons click
     let addEventListeners = function () {
       firstButton.addEventListener("click", firstPage);
       prevButton.addEventListener("click", prevPage);
@@ -29,14 +28,12 @@
       lastButton.addEventListener("click", lastPage);
     };
 
-    //recive user click on the selected button  
     let selectedPage = function () {
       let page_number = document
         .getElementById("page_number")
         .getElementsByClassName("clickPageNumber");
     };
 
-    //change button opacity deppending on choosen page
     let checkButtonOpacity = function () {
       current_page == 1
         ? firstButton.classList.add("opacity")
@@ -51,11 +48,9 @@
         ? lastButton.classList.add("opacity")
         : lastButton.classList.remove("opacity");
     };
-
-       
+ 
     let changePage = async function (page) {
       const listOfMovies = document.getElementById("listOfMovies");
-
       if (page < 1) {
         page = 1;
       }
@@ -63,38 +58,29 @@
         page = numPages();
       }
 
-      //reciving data from movie database depending on choosen page
       let response = await fetch(
         `https://api.themoviedb.org/3/movie/now_playing?api_key=ebea8cfca72fdff8d2624ad7bbf78e4c&language=en-US&page=${current_page}`
       );
-
       let content = await response.json();
       content = content.results;
-
-      //recives poster from each object and create img tag and push it to html
       let key;
 
       for (key in content) {
         listOfMovies.innerHTML = "";
-        
-
         for (var i = 0; i < records_per_page && i < content.length; i++) {
           if(content[i].poster_path){
-            listOfMovies.innerHTML += `<img class='objectBlock' src='http://image.tmdb.org/t/p/w342${content[i].poster_path}'></div>`
+            listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' src='http://image.tmdb.org/t/p/w342${content[i].poster_path}'></div>`
           } else {
             console.log('NO POSTER')
-            listOfMovies.innerHTML += "<img class='objectBlock' src='./images/no-image.jpg'></div>"
+            listOfMovies.innerHTML += "<img class='objectBlock col-5 col-md-12' src='./images/no-image.jpg'></div>"
           }
-          // console.log('http://image.tmdb.org/t/p/w342$'+content[i].poster_path)
-          
         }
-        console.log()
         checkButtonOpacity();
         selectedPage();
       }
     };
 
-    //cathc user current page location and call ChangePage function
+
     let clickPage = function () {
       document.addEventListener("click", function (e) {
         if (
@@ -110,7 +96,6 @@
       });
     };
 
-    //selecting first page
     let firstPage = function () {
       if (current_page != 1) {
         current_page = 1;
@@ -119,7 +104,6 @@
       }
     };
 
-    //select previous page if it isn`t first
     let prevPage = function () {
       if (current_page > 1) {
         current_page--;
@@ -128,7 +112,6 @@
       }
     };
 
-    //select next page if isn`t last
     let nextPage = function () {
       if (current_page < numPages()) {
         current_page++;
@@ -137,7 +120,6 @@
       }
     };
 
-    //select last page 
     let lastPage = function () {
       if (current_page != numPages()) {
         current_page = numPages();
@@ -146,8 +128,6 @@
       }
     };
 
-
-    //   generate pages number and add to Span "page_number"
     let pageNumbers = function(current_page){
       let pageNumber = document.getElementById("page_number");
       pageNumber.innerHTML = "";
@@ -181,7 +161,6 @@
       }
     }
 
-    //calculating num of pages depend on movies numbers and needed amount on the one page
     let numPages = function () {
       return Math.ceil(films_number / records_per_page);
     };
