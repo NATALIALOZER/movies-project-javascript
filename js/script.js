@@ -65,22 +65,36 @@
       );
       let content = await response.json();
       content = content.results;
-      console.log(content)
+      // console.log(content)
       let key;
-
-      for (key in content) {
-        listOfMovies.innerHTML = "";
-        for (var i = 0; i < records_per_page && i < content.length; i++) {
-          if(content[i].poster_path){
-            listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' id='${content[i].id}' src='http://image.tmdb.org/t/p/w342${content[i].poster_path}'></img><div style="display:none"><h2>${content[i].original_title}</h2><p>Score: ${content[i].vote_average}</p><p>Rating: ${content[i].adult}</p><p>Release Date: ${content[i].release_date}</p><hr><p>${content[i].overview}</p><hr></div>`
-          } else {
-            console.log('NO POSTER')
-            listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' id='${content[i].id}' src='./images/no-image.jpg'></img><div style="display:none"><h2>${content[i].original_title}</h2><p>Score: ${content[i].vote_average}</p><p>Rating: ${content[i].adult}</p><p>Release Date: ${content[i].release_date}</p><hr><p>${content[i].overview}</p><hr></div>`
+      
+      // if(id){
+      //   var idArray = content.map(function(obj){
+      //     return(obj.id)
+      //   })
+      //   for(let i in idArray){
+      //     if(id == idArray[i]){
+      //       let new_i=i+1
+      //       let newID=idArray[new_i]
+      //       console.log(newID)
+      //     }
+      //   }
+      //   // console.log(idArray) 
+      // } else {
+        for (key in content) {
+          listOfMovies.innerHTML = "";
+          for (var i = 0; i < records_per_page && i < content.length; i++) {
+            if(content[i].poster_path){
+              listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' src='http://image.tmdb.org/t/p/w342${content[i].poster_path}'></img><div class='details__movie-info col-6' id='${content[i].id}' style="display:none"><h2>${content[i].original_title}</h2></p><p>Score: ${content[i].vote_average}</p><p>Rating: ${content[i].adult}</p><p>Release Date: ${content[i].release_date}</p><hr><p>${content[i].overview}</p><hr></div>`
+            } else {
+              console.log('NO POSTER')
+              listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' src='./images/no-image.jpg'></img><div style="display:none"><h2>${content[i].original_title}</h2><p>Score: ${content[i].vote_average}</p><p>Rating: ${content[i].adult}</p><p>Release Date: ${content[i].release_date}</p><hr><p>${content[i].overview}</p><hr></div>`
+            }
           }
+          checkButtonOpacity();
+          selectedPage();
         }
-        checkButtonOpacity();
-        selectedPage();
-      }
+      // }
     };
 
     let clickPage = function () {
@@ -168,25 +182,46 @@
     };
 
     let clickPoster = function () {
-      document.addEventListener("click", function (e) {
+        var targetPoster;
+        var targetID;
+        var targetInfo;
+        document.addEventListener("click", function (e) {
         if (
           e.target.nodeName == "IMG" &&
           e.target.classList.contains("objectBlock")
-        ) {
-          // console.log(e.target,e.target.id,e.target.nextSibling)
-          openDetailsModal(e.target,e.target.id,e.target.nextSibling);
+        ) {  
+          let poster = e.target
+          console.log(poster)
+          let movie_id = e.target.id
+          let movie_info = e.target.nextSibling
+          // вот здесь гду-то загвоздка с удалением постера
+          targetPoster = e.target.nextSibling.nextSibling
+          targetID = e.target.nextSibling.nextSibling.id
+          targetInfo = e.target.nextSibling.nextSibling.nextSibling 
+          openDetailsModal(poster, movie_id, movie_info);
         }
+        if (
+          e.target.nodeName == "BUTTON" &&
+          e.target.classList.contains("navigation__next-movie")
+        ) {
+          openDetailsModal(targetPoster,targetID,targetInfo)
+        }
+        
       });
     }
 
-    let openDetailsModal = function (poster, id, movie_info) {
+    let openDetailsModal = function (poster, movie_id, movie_info) {
       var modal = document.getElementById("details-modal");
       let posterBox = document.getElementById("poster-box");
-      // var backToListbtn = document.getElementById("back-to-list");
       modal.style.display = "flex";
-      // posterBox.innerHTML += нужно как-то расспарсить HTML обьект!!!!!!!!!!!!
-
-      console.log(poster)
+      document.body.style.overflow = 'hidden';
+      var copyPoster = poster.cloneNode(true);
+      while(posterBox.firstChild){
+        posterBox.removeChild(posterBox.firstChild)
+      }
+      posterBox.appendChild(copyPoster)
+      // console.log(posterBox)
+      //have to do!
     }
 
     let closeDetailsModal = function () {
@@ -197,11 +232,30 @@
         ) {
           let modal = document.getElementById("details-modal");
           modal.style.display = "none";
-          console.log('close')
+          document.body.style.overflow = 'visible';
+          // console.log('close')
         }
       });
     }
 
+    // let clickNextMovie = function () {
+    //   document.addEventListener("click", function (e) {
+    //     if (
+    //       e.target.nodeName == "BUTTON" &&
+    //       e.target.classList.contains("navigation__next-movie")
+    //     ) {
+    //       // let movieID = document.getElementsByClassName("details__movie-info")
+    //       // changePage(page,movieID[0]);
+    //       var nextID = 1
+    //       clickPoster(nextID)
+    //       console.log('next click!')
+    //     }
+    //   });
+    // }
+    
+    // let nextMovie = function(id) {
+
+    // }
 
   }
   let pagination = new Pagination();
