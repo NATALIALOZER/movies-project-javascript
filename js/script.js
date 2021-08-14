@@ -67,43 +67,28 @@
       content = content.results;
       // console.log(content)
       let key;
-      
-      // if(id){
-      //   var idArray = content.map(function(obj){
-      //     return(obj.id)
-      //   })
-      //   for(let i in idArray){
-      //     if(id == idArray[i]){
-      //       let new_i=i+1
-      //       let newID=idArray[new_i]
-      //       console.log(newID)
-      //     }
-      //   }
-      //   // console.log(idArray) 
-      // } else {
-        for (key in content) {
-          listOfMovies.innerHTML = "";
-          for (var i = 0; i < records_per_page && i < content.length; i++) {
-            if(content[i].poster_path){
-              listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' src='http://image.tmdb.org/t/p/w342${content[i].poster_path}'></img><div class='details__movie-info col-6' id='${content[i].id}' style="display:none"><h2>${content[i].original_title}</h2></p><p>Score: ${content[i].vote_average}</p><p>Rating: ${content[i].adult}</p><p>Release Date: ${content[i].release_date}</p><hr><p>${content[i].overview}</p><hr></div>`
-            } else {
-              console.log('NO POSTER')
-              listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' src='./images/no-image.jpg'></img><div style="display:none"><h2>${content[i].original_title}</h2><p>Score: ${content[i].vote_average}</p><p>Rating: ${content[i].adult}</p><p>Release Date: ${content[i].release_date}</p><hr><p>${content[i].overview}</p><hr></div>`
-            }
+      for (key in content) {
+        listOfMovies.innerHTML = "";
+        for (let i = 0; i < records_per_page && i < content.length; i++) {
+          if(content[i].poster_path){
+            listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' src='http://image.tmdb.org/t/p/w342${content[i].poster_path}'><div class="details__new-movie-info" id='${content[i].id}' style="display:none"><button class="add-to-favorites btn btn-light">Add to favorite</button><div class="movie-title">${content[i].original_title}</div><div class="movie-ratings"><span class="movie-score"> Score: ${content[i].vote_average} </span><span class="movie-rating"> Rating: ${content[i].adult}</span><span class="movie-release"> Release Date: ${content[i].release_date}</span></div><hr><span class="movie-description">${content[i].overview}</span><hr></div>`
+          } else {
+            console.log('NO POSTER')
+            listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' src='./images/no-image.jpg'><div class="details__new-movie-info" id='${content[i].id}' style="display:none"><button class="add-to-favorites btn btn-light">Add to favorite</button><div class="movie-title">${content[i].original_title}</div><div class="movie-ratings"><span class="movie-score"> Score: ${content[i].vote_average} </span><span class="movie-rating"> Rating: ${content[i].adult}</span><span class="movie-release"> Release Date: ${content[i].release_date}</span></div><hr><span class="movie-description">${content[i].overview}</span><hr></div>`
           }
-          checkButtonOpacity();
-          selectedPage();
         }
-      // }
+        checkButtonOpacity();
+        selectedPage();
+      }
     };
 
     let clickPage = function () {
       document.addEventListener("click", function (e) {
         if (
-          e.target.nodeName == "SPAN" &&
+          e.target.nodeName === "SPAN" &&
           e.target.classList.contains("clickPageNumber")
         ) {
-          if(e.target.textContent!="..."){
+          if(e.target.textContent!=="..."){
             current_page = e.target.textContent;
           }
           changePage(current_page);
@@ -113,7 +98,7 @@
     };
 
     let firstPage = function () {
-      if (current_page != 1) {
+      if (current_page !== 1) {
         current_page = 1;
         changePage(current_page);
         pageNumbers(current_page)
@@ -137,7 +122,7 @@
     };
 
     let lastPage = function () {
-      if (current_page != numPages()) {
+      if (current_page !== numPages()) {
         current_page = numPages();
         changePage(current_page);
         pageNumbers(current_page)
@@ -182,44 +167,77 @@
     };
 
     let clickPoster = function () {
-        var targetPoster;
-        var targetID;
-        var targetInfo;
+        let current_poster;
+        let current_movie_info;
+        let next_poster;
+        let next_info;
+        let next = document.getElementsByClassName("navigation__next-movie")[0]
+
         document.addEventListener("click", function (e) {
         if (
-          e.target.nodeName == "IMG" &&
+          e.target.nodeName === "IMG" &&
           e.target.classList.contains("objectBlock")
-        ) {  
-          let poster = e.target
-          console.log(poster)
-          let movie_id = e.target.id
-          let movie_info = e.target.nextSibling
-          // вот здесь гду-то загвоздка с удалением постера
-          targetPoster = e.target.nextSibling.nextSibling
-          targetID = e.target.nextSibling.nextSibling.id
-          targetInfo = e.target.nextSibling.nextSibling.nextSibling 
-          openDetailsModal(poster, movie_id, movie_info);
+        ) {
+            current_poster = e.target
+            current_movie_info = e.target.nextSibling
+          try {
+            next_poster = current_poster.nextSibling.nextSibling
+            next_info = current_movie_info.nextSibling.nextSibling
+            next.style.display = "flex";
+          } catch (err) {
+            next_poster = 1
+            next_info = 1
+            next.style.display = "none";
+          }
+          finally {
+            openDetailsModal(current_poster, current_movie_info);
+          }
         }
         if (
-          e.target.nodeName == "BUTTON" &&
+          e.target.nodeName === "BUTTON" &&
           e.target.classList.contains("navigation__next-movie")
         ) {
-          openDetailsModal(targetPoster,targetID,targetInfo)
+            current_poster = next_poster
+            current_movie_info = next_info
+          try {
+            next_poster = current_poster.nextSibling.nextSibling
+            next_info = current_movie_info.nextSibling.nextSibling
+            next.style.display = "flex";
+          } catch (err) {
+            next_poster = 1
+            next_info = 1
+            next.style.display = "none";
+          }
+          finally {
+            openDetailsModal(current_poster, current_movie_info)
+          }
         }
-        
       });
     }
 
-    let openDetailsModal = function (poster, movie_id, movie_info) {
-      var modal = document.getElementById("details-modal");
+    let openDetailsModal = function (poster,  movie_info) {
+      let modal = document.getElementById("details-modal");
       let posterBox = document.getElementById("poster-box");
+      let infoBox = document.getElementById("info-box");
       modal.style.display = "flex";
+      modal.style.backgroundImage = `linear-gradient( rgba(9, 14, 26, 0.8), rgba(0, 0, 0, 0.5) ), url("${poster.src}")`
+
       document.body.style.overflow = 'hidden';
-      var copyPoster = poster.cloneNode(true);
+
+      let copyPoster = poster.cloneNode(true);
       while(posterBox.firstChild){
         posterBox.removeChild(posterBox.firstChild)
       }
       posterBox.appendChild(copyPoster)
+
+      let copyInfo = movie_info.cloneNode(true);
+      while(infoBox.firstChild){
+        infoBox.removeChild(infoBox.firstChild)
+      }
+      copyInfo.style.display='flex'
+      infoBox.appendChild(copyInfo)
+
+      console.log(infoBox)
       // console.log(posterBox)
       //have to do!
     }
@@ -227,7 +245,7 @@
     let closeDetailsModal = function () {
       document.addEventListener("click", function (e) {
         if (
-          e.target.nodeName == "BUTTON" &&
+          e.target.nodeName === "BUTTON" &&
           e.target.classList.contains("navigation__back-to-list")
         ) {
           let modal = document.getElementById("details-modal");
@@ -238,24 +256,10 @@
       });
     }
 
-    // let clickNextMovie = function () {
-    //   document.addEventListener("click", function (e) {
-    //     if (
-    //       e.target.nodeName == "BUTTON" &&
-    //       e.target.classList.contains("navigation__next-movie")
-    //     ) {
-    //       // let movieID = document.getElementsByClassName("details__movie-info")
-    //       // changePage(page,movieID[0]);
-    //       var nextID = 1
-    //       clickPoster(nextID)
-    //       console.log('next click!')
-    //     }
-    //   });
-    // }
-    
-    // let nextMovie = function(id) {
-
-    // }
+    let closeModal = function (){
+      let next = document.getElementsByClassName("navigation__next-movie")[0]
+      next.style.display = "none";
+    }
 
   }
   let pagination = new Pagination();

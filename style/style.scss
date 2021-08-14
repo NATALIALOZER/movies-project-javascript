@@ -42,6 +42,7 @@ hr{
     color: white;
     padding: 20px 0;
     z-index: 1;
+    position: fixed;
     &__inner{
         display: flex;
         justify-content: space-between;
@@ -214,10 +215,14 @@ and (max-device-width: 720px){
 
 
 .movie-details-modal{
-    background-color: #474D59;
-    opacity: 90%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: top;
+    opacity: 100%;
     // display: flex;
     padding-top: 79px;
+    z-index: 0;
     .details-modal-inner{
         padding: 30px 20px;
         .navigation{
@@ -262,10 +267,11 @@ and (max-device-width: 720px){
             }
             &__movie-info{
                 margin-left: 5%;
+            }
+            &__new-movie-info{
                 display: flex;
                 flex-direction: column;
                 color: white;
-                
                 .add-to-favorites{
                     background-color: transparent;
                     color: #fff;
