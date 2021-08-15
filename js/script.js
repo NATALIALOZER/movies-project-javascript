@@ -50,7 +50,7 @@
         ? lastButton.classList.add("opacity")
         : lastButton.classList.remove("opacity");
     };
- 
+
     let changePage = async function (page) {
       const listOfMovies = document.getElementById("listOfMovies");
       if (page < 1) {
@@ -64,19 +64,22 @@
         `https://api.themoviedb.org/3/movie/now_playing?api_key=ebea8cfca72fdff8d2624ad7bbf78e4c&language=en-US&page=${current_page}`
       );
       let content = await response.json();
+      films_number=content.total_results
+      console.log(`На данный момент в базе данных - ${films_number} фильмов.`)
       content = content.results;
-      // console.log(content)
+
       let key;
       for (key in content) {
         listOfMovies.innerHTML = "";
         for (let i = 0; i < records_per_page && i < content.length; i++) {
           if(content[i].poster_path){
-            listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' src='http://image.tmdb.org/t/p/w342${content[i].poster_path}'><div class="details__new-movie-info" id='${content[i].id}' style="display:none"><button class="add-to-favorites btn btn-light">Add to favorite</button><div class="movie-title">${content[i].original_title}</div><div class="movie-ratings"><span class="movie-score"> Score: ${content[i].vote_average} </span><span class="movie-rating"> Rating: ${content[i].adult}</span><span class="movie-release"> Release Date: ${content[i].release_date}</span></div><hr><span class="movie-description">${content[i].overview}</span><hr></div>`
+            listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' src='http://image.tmdb.org/t/p/w342${content[i].poster_path}'><div class="details__new-movie-info" id='${content[i].id}' style="display:none"><button class="add-to-favorites btn btn-light">Add to favorite</button><div class="movie-title">${content[i].original_title}</div><div class="movie-ratings"><span class="movie-score"> Score: ${content[i].vote_average} </span><span class="movie-rating"> Rating: ${content[i].adult}</span><span class="movie-release"> Release Date: ${content[i].release_date}</span></div><div class="movie-description-box"><hr><span class="movie-description">${content[i].overview}</span><hr></div></div>`
           } else {
             console.log('NO POSTER')
-            listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' src='./images/no-image.jpg'><div class="details__new-movie-info" id='${content[i].id}' style="display:none"><button class="add-to-favorites btn btn-light">Add to favorite</button><div class="movie-title">${content[i].original_title}</div><div class="movie-ratings"><span class="movie-score"> Score: ${content[i].vote_average} </span><span class="movie-rating"> Rating: ${content[i].adult}</span><span class="movie-release"> Release Date: ${content[i].release_date}</span></div><hr><span class="movie-description">${content[i].overview}</span><hr></div>`
+            listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' src='./images/no-image.jpg'><div class="details__new-movie-info" id='${content[i].id}' style="display:none"><button class="add-to-favorites btn btn-light">Add to favorite</button><div class="movie-title">${content[i].original_title}</div><div class="movie-ratings"><span class="movie-score"> Score: ${content[i].vote_average} </span><span class="movie-rating"> Rating: ${content[i].adult}</span><span class="movie-release"> Release Date: ${content[i].release_date}</span></div><div class="movie-description-box"><hr><span class="movie-description">${content[i].overview}</span><hr></div></div>`
           }
         }
+
         checkButtonOpacity();
         selectedPage();
       }
@@ -254,11 +257,6 @@
           // console.log('close')
         }
       });
-    }
-
-    let closeModal = function (){
-      let next = document.getElementsByClassName("navigation__next-movie")[0]
-      next.style.display = "none";
     }
 
   }
