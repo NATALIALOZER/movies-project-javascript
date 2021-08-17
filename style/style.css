@@ -53,8 +53,10 @@ hr {
 .header__logo {
   display: flex;
   justify-content: space-between;
-  width: 100px;
   align-items: center;
+}
+.header__logo img {
+  margin-right: 20px;
 }
 .header__account {
   display: flex;
@@ -291,6 +293,12 @@ hr {
 .movie-details-modal .details-modal-inner .details__new-movie-info .movie-description {
   font-weight: 400;
   font-size: 18px;
+}
+.movie-details-modal .details-modal-inner .details__new-favorite-info {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-weight: 500;
 }
 
 @media all and (min-device-width: 720px) and (max-device-width: 1366px) {

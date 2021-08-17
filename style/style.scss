@@ -52,8 +52,10 @@ hr{
     &__logo{
         display: flex;
         justify-content: space-between;
-        width: 100px;
         align-items: center;
+        img{
+            margin-right: 20px;
+        }
     }
     &__account{
         display: flex;
@@ -294,6 +296,12 @@ hr{
                     font-weight: 400;
                     font-size: 18px;
                 }
+            }
+            &__new-favorite-info{
+                display: flex;
+                flex-direction: column;
+                color: white;
+                font-weight: 500;
             }
         }
     }

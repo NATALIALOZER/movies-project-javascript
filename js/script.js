@@ -1,4 +1,162 @@
-"use strict";
+(function() {"use strict";
+
+  let clickPoster = function () {
+    let current_poster;
+    let current_movie_info;
+    let next_poster;
+    let next_info;
+    let next = document.getElementsByClassName("navigation__next-movie")[0]
+
+    document.addEventListener("click", function (e) {
+      if (
+          e.target.nodeName === "IMG" &&
+          e.target.classList.contains("objectBlock")
+      ) {
+
+        current_poster = e.target
+        current_movie_info = e.target.nextSibling
+
+        /*HEREEEEEEEEEEEEE!*/
+
+
+        /*console.log(current_poster)
+        console.log(current_movie_info)
+        console.log(current_poster.parentElement.nextSibling.firstChild)
+        console.log(current_movie_info.parentElement.nextSibling.firstChild.nextSibling)*/
+
+        try {
+          if (window.location.href.indexOf("pages") !== -1) {
+            next_poster = current_poster.parentElement.nextSibling.firstChild
+            console.log("g")
+            next_info = current_movie_info.parentElement.nextSibling.firstChild.nextSibling
+            next.style.display = "flex";
+          } if (window.location.href.indexOf("index")!== -1) {
+            next_poster = current_poster.nextSibling.nextSibling
+            console.log("b")
+            next_info = current_movie_info.nextSibling.nextSibling
+            next.style.display = "flex";
+          }
+        } catch (err) {
+          next_poster = 1
+          next_info = 1
+          next.style.display = "none";
+        } finally {
+          let btn = current_movie_info.getElementsByTagName('button').item(0)
+          /*console.log(current_poster)*/
+          if(localStorage.getItem(current_poster.id)){
+            btn.style.visibility = 'hidden'
+          }
+          openDetailsModal(current_poster, current_movie_info);
+        }
+      }
+      if (
+          e.target.nodeName === "BUTTON" &&
+          e.target.classList.contains("navigation__next-movie")
+      ) {
+        current_poster = next_poster
+        current_movie_info = next_info
+        try {
+          if (window.location.href.indexOf("pages") !== -1)  {
+            next_poster = current_poster.parentElement.nextSibling.firstChild
+            /*console.log(next_poster)*/
+            next_info = current_movie_info.parentElement.nextSibling.firstChild.nextSibling
+            next.style.display = "flex";
+          } if (window.location.href.indexOf("index")!== -1) {
+            next_poster = current_poster.nextSibling.nextSibling
+            /*console.log(next_poster)*/
+            next_info = current_movie_info.nextSibling.nextSibling
+            next.style.display = "flex";
+          }
+        } catch (err) {
+          next_poster = 1
+          next_info = 1
+          next.style.display = "none";
+        } finally {
+          console.log(current_movie_info)
+          let btn = current_movie_info.getElementsByTagName('button').item(0)
+          /*console.log(current_poster)*/
+          if(localStorage.getItem(current_poster.id)){
+            /*console.log('item in local', btn)*/
+            btn.style.visibility = 'hidden'
+          }
+          openDetailsModal(current_poster, current_movie_info)
+        }
+      }
+    });
+  }
+
+  let openDetailsModal = function (poster, movie_info) {
+    let modal = document.getElementById("details-modal");
+    let posterBox = document.getElementById("poster-box");
+    let infoBox = document.getElementById("info-box");
+
+    modal.style.display = "flex";
+    modal.style.backgroundImage = `linear-gradient( rgba(9, 14, 26, 0.8), rgba(0, 0, 0, 0.5) ), url("${poster.src}")`
+
+    document.body.style.overflow = 'hidden';
+
+    let copyPoster = poster.cloneNode(true);
+    while (posterBox.firstChild) {
+      posterBox.removeChild(posterBox.firstChild)
+    }
+    posterBox.appendChild(copyPoster)
+
+    let copyInfo = movie_info.cloneNode(true);
+    while (infoBox.firstChild) {
+      infoBox.removeChild(infoBox.firstChild)
+    }
+    copyInfo.style.display = 'flex'
+    infoBox.appendChild(copyInfo)
+  }
+
+  let closeDetailsModal = function () {
+    document.addEventListener("click", function (e) {
+      if (
+          e.target.nodeName === "BUTTON" &&
+          e.target.classList.contains("navigation__back-to-list")
+      ) {
+        let modal = document.getElementById("details-modal");
+        modal.style.display = "none";
+        document.body.style.overflow = 'visible';
+        // console.log('close')
+      }
+    });
+  }
+
+  let addToFavorites = function () {
+    document.addEventListener("click", function (e) {
+      if (
+          e.target.nodeName === "BUTTON" &&
+          e.target.classList.contains("add-to-favorites")
+      ) {
+        let target = e.target;
+        /*console.log(target)*/
+        let id = target.parentElement.id
+        let m_title = target.parentElement.getElementsByClassName("movie-title")[0]
+        let m_description = target.parentElement.getElementsByClassName("movie-description")[0]
+        let doc = target.parentElement.parentElement.parentElement
+        let m_poster = doc.getElementsByClassName("objectBlock")[0]
+        let storage = {};
+
+        if (localStorage.getItem(id)){
+          /*let btn = document.getElementById(`favorite-button-${id}`)
+          console.log(btn)*/
+          /*btn.style.visibility = 'hidden'*/
+          alert(`Movie with this id - ${id} already in list` )
+        } else {
+          storage['title'] = m_title.innerHTML
+          storage['info'] = m_description.innerHTML
+          storage['poster'] = m_poster.src
+          localStorage.setItem(id, JSON.stringify(storage))
+        }
+        /*localStorage.clear()*/
+      }
+    });
+  }
+
+  clickPoster();
+  closeDetailsModal();
+  addToFavorites();
 
   if (window.location.href.indexOf("pages") === -1) {
 
@@ -20,10 +178,7 @@
         pageNumbers(1);
         selectedPage();
         clickPage();
-        clickPoster();
-        closeDetailsModal();
         addEventListeners();
-        addToFavorites();
       };
 
       let addEventListeners = function () {
@@ -76,10 +231,10 @@
           listOfMovies.innerHTML = "";
           for (let i = 0; i < records_per_page && i < content.length; i++) {
             if (content[i].poster_path) {
-              listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' id='${content[i].id}' src='http://image.tmdb.org/t/p/w342${content[i].poster_path}'><div class="details__new-movie-info" id='${content[i].id}' style="display:none"><button class="add-to-favorites btn btn-light" id="favorite-button" style="visibility: visible" >Add to favorite</button><div class="movie-title">${content[i].original_title}</div><div class="movie-ratings"><span class="movie-score"> Score: ${content[i].vote_average} </span><span class="movie-rating"> Rating: ${content[i].adult}</span><span class="movie-release"> Release Date: ${content[i].release_date}</span></div><div class="movie-description-box"><hr><span class="movie-description">${content[i].overview}</span><hr></div></div>`
+              listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' id='${content[i].id}' src='http://image.tmdb.org/t/p/w342${content[i].poster_path}'><div class="details__new-movie-info" id='${content[i].id}' style="display:none"><button class="add-to-favorites btn btn-light" id="favorite-button-${content[i].id}" style="visibility: visible" >Add to favorite</button><div class="movie-title">${content[i].original_title}</div><div class="movie-ratings"><span class="movie-score"> Score: ${content[i].vote_average} </span><span class="movie-rating"> Rating: ${content[i].adult}</span><span class="movie-release"> Release Date: ${content[i].release_date}</span></div><div class="movie-description-box"><hr><span class="movie-description">${content[i].overview}</span><hr></div></div>`
             } else {
               console.log('NO POSTER')
-              listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' id='${content[i].id}' src='./images/no-image.jpg'><div class="details__new-movie-info" id='${content[i].id}' style="display:none"><button class="add-to-favorites btn btn-light">Add to favorite</button><div class="movie-title">${content[i].original_title}</div><div class="movie-ratings"><span class="movie-score"> Score: ${content[i].vote_average} </span><span class="movie-rating"> Rating: ${content[i].adult}</span><span class="movie-release"> Release Date: ${content[i].release_date}</span></div><div class="movie-description-box"><hr><span class="movie-description">${content[i].overview}</span><hr></div></div>`
+              listOfMovies.innerHTML += `<img class='objectBlock col-5 col-md-12' id='${content[i].id}' src='./images/no-image.jpg'><div class="details__new-movie-info" id='${content[i].id}' style="display:none"><button class="add-to-favorites btn btn-light" id="favorite-button-${content[i].id}" style="visibility: visible" >Add to favorite</button><div class="movie-title">${content[i].original_title}</div><div class="movie-ratings"><span class="movie-score"> Score: ${content[i].vote_average} </span><span class="movie-rating"> Rating: ${content[i].adult}</span><span class="movie-release"> Release Date: ${content[i].release_date}</span></div><div class="movie-description-box"><hr><span class="movie-description">${content[i].overview}</span><hr></div></div>`
             }
           }
           checkButtonOpacity();
@@ -172,164 +327,56 @@
       };
     }
 
-    let clickPoster = function () {
-      let current_poster;
-      let current_movie_info;
-      let next_poster;
-      let next_info;
-      let next = document.getElementsByClassName("navigation__next-movie")[0]
-
-
-      document.addEventListener("click", function (e) {
-        if (
-            e.target.nodeName === "IMG" &&
-            e.target.classList.contains("objectBlock")
-        ) {
-          /*let favorite_button = document.getElementById("favorite-button")
-          console.log(favorite_button)
-          let movie_ID = e.target.id
-          if (localStorage.getItem(movie_ID)){
-
-            favorite_button.style.visibility = 'hidden'
-          }*/
-
-          current_poster = e.target
-          current_movie_info = e.target.nextSibling
-          try {
-            next_poster = current_poster.nextSibling.nextSibling
-            next_info = current_movie_info.nextSibling.nextSibling
-            next.style.display = "flex";
-          } catch (err) {
-            next_poster = 1
-            next_info = 1
-            next.style.display = "none";
-          } finally {
-            openDetailsModal(current_poster, current_movie_info);
-          }
-        }
-        if (
-            e.target.nodeName === "BUTTON" &&
-            e.target.classList.contains("navigation__next-movie")
-        ) {
-          current_poster = next_poster
-          current_movie_info = next_info
-          try {
-            next_poster = current_poster.nextSibling.nextSibling
-            next_info = current_movie_info.nextSibling.nextSibling
-            next.style.display = "flex";
-          } catch (err) {
-            next_poster = 1
-            next_info = 1
-            next.style.display = "none";
-          } finally {
-            openDetailsModal(current_poster, current_movie_info)
-          }
-        }
-      });
-    }
-
-    let openDetailsModal = function (poster, movie_info) {
-      let modal = document.getElementById("details-modal");
-      let posterBox = document.getElementById("poster-box");
-      let infoBox = document.getElementById("info-box");
-
-      modal.style.display = "flex";
-      modal.style.backgroundImage = `linear-gradient( rgba(9, 14, 26, 0.8), rgba(0, 0, 0, 0.5) ), url("${poster.src}")`
-
-      document.body.style.overflow = 'hidden';
-
-      let copyPoster = poster.cloneNode(true);
-      while (posterBox.firstChild) {
-        posterBox.removeChild(posterBox.firstChild)
-      }
-      posterBox.appendChild(copyPoster)
-
-      let copyInfo = movie_info.cloneNode(true);
-      while (infoBox.firstChild) {
-        infoBox.removeChild(infoBox.firstChild)
-      }
-      copyInfo.style.display = 'flex'
-      infoBox.appendChild(copyInfo)
-    }
-
-    let closeDetailsModal = function () {
-      document.addEventListener("click", function (e) {
-        if (
-            e.target.nodeName === "BUTTON" &&
-            e.target.classList.contains("navigation__back-to-list")
-        ) {
-          let modal = document.getElementById("details-modal");
-          modal.style.display = "none";
-          document.body.style.overflow = 'visible';
-          // console.log('close')
-        }
-      });
-    }
-
-    let addToFavorites = function () {
-      document.addEventListener("click", function (e) {
-        if (
-            e.target.nodeName === "BUTTON" &&
-            e.target.classList.contains("add-to-favorites")
-        ) {
-          let storage = {};
-          let target = e.target;
-          /*target.style.visibility = 'hidden'*/
-          let id = target.parentElement.id
-          let m_title = target.parentElement.getElementsByClassName("movie-title")[0]
-          let m_description = target.parentElement.getElementsByClassName("movie-description")[0]
-          let doc = target.parentElement.parentElement.parentElement
-          let m_poster = doc.getElementsByClassName("objectBlock")[0]
-          if (localStorage.getItem(id) != null){
-            alert(`Movie with this id - ${id} already in list` )
-          } else {
-            storage['title'] = m_title.innerHTML
-            storage['info'] = m_description.innerHTML
-            storage['poster'] = m_poster.src
-            localStorage.setItem(id, JSON.stringify(storage))
-          }
-          /*localStorage.clear()*/
-        }
-      });
-    }
     let pagination = new Pagination();
     pagination.init();
   }
 
   if(window.location.href.indexOf("favorites") > -1){
     console.log('------------------On favorite-page')
-    const listOfFavorites = document.getElementById("favorite_list");
 
-    let listChangeFavorite = function () {
-      for (let i = 0; i < localStorage.length; i++) {
-        let obj = JSON.parse(localStorage.getItem(localStorage.key(i)))
-        let img_id = localStorage.key(i)
-        /*console.log(localStorage.key(i))*/
-        let title = obj.title
-        /*console.log(title)*/
-        let info = obj.info
-        let poster = obj.poster
-        let newDiv = document.createElement("div");
-        newDiv.classList.add("fav-movie-block");
-        newDiv.innerHTML = `<img src="${poster}" id="${img_id}" alt="fav-poster"><div class="details__new-favorite-info"><button class="remove-favorites btn btn-light" id="remove-from-favorites">Unfavorite</button><h1>${title}</h1><p>${info}</p></div>`;
-        listOfFavorites.appendChild(newDiv)
+    function PageGenerator() {
+      this.init = function () {
+        listChangeFavorite()
+        removeFromFavorite()
+      };
+
+      const listOfFavorites = document.getElementById("favorite_list");
+
+      let listChangeFavorite = function () {
+        for (let i = 0; i < localStorage.length; i++) {
+          let obj = JSON.parse(localStorage.getItem(localStorage.key(i)))
+          let img_id = localStorage.key(i)
+          /*console.log(localStorage.key(i))*/
+          let title = obj.title
+          /*console.log(title)*/
+          let info = obj.info
+          let poster = obj.poster
+          let newDiv = document.createElement("div");
+          newDiv.classList.add("fav-movie-block");
+          newDiv.innerHTML = `<img class="objectBlock" src="${poster}" id="${img_id}" alt="fav-poster"><div class="details__new-favorite-info"><button class="remove-favorites btn btn-light" id="remove-from-favorites">Unfavorite</button><h1>${title}</h1><p>${info}</p></div>`;
+          listOfFavorites.appendChild(newDiv)
+        }
+      }
+      listChangeFavorite()
+
+      let removeFromFavorite = function () {
+        document.addEventListener("click", function (e) {
+          if (
+              e.target.nodeName === "BUTTON" &&
+              e.target.classList.contains("remove-favorites")
+          ) {
+            let m_div = e.target.parentElement.parentElement
+            let back_img = m_div.getElementsByTagName('img')[0]
+            let back_id = back_img.id
+            localStorage.removeItem(back_id);
+            location.reload()
+          }
+        })
       }
     }
-    listChangeFavorite()
+    let generator = new PageGenerator();
+    generator.init();
 
-    let removeFromFavorite = function () {
-      document.addEventListener("click", function (e){
-        if (
-            e.target.nodeName === "BUTTON" &&
-            e.target.classList.contains("remove-favorites")
-        ) {
-          let m_div = e.target.parentElement.parentElement
-          let back_img = m_div.getElementsByTagName('img')[0]
-          let back_id = back_img.id
-          localStorage.removeItem(back_id);
-          location.reload()
-        }
-      })}
-    removeFromFavorite()
   }
+})();
 
