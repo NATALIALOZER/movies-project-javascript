@@ -186,7 +186,30 @@ hr{
     .outline-none {
         outline: none;
         user-select: none; 
-    }   
+    }
+
+    .favoriteList{
+        margin: 30px;
+        display: block;
+        justify-content: space-evenly;
+        .fav-movie-block {
+            display: flex;
+            padding: 30px;
+            img {
+                border-radius: 20px;
+                border: #474D59 1px solid;
+                margin-right: 30px;
+            }
+            .details__new-favorite-info {
+                display: flex;
+                flex-direction: column;
+
+                .remove-favorites {
+                    align-self: flex-end;
+                }
+            }
+        }
+    }
 }
 
 .movie-details-modal{
@@ -358,7 +381,7 @@ and (max-device-width: 720px){
         .dropdown:checked~ul.dropdown-content {
             border-radius: 0;
         }
-    }
+    }у
     .main{
         padding-top: 50px;
         .pagination{
