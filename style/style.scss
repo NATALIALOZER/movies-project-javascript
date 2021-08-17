@@ -203,8 +203,11 @@ hr{
             .details__new-favorite-info {
                 display: flex;
                 flex-direction: column;
-
                 .remove-favorites {
+                    font-size: 18px;
+                    color: #6E7386;
+                    background-color: antiquewhite;
+                    font-weight: 600;
                     align-self: flex-end;
                 }
             }
