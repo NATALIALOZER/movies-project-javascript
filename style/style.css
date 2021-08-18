@@ -6,10 +6,8 @@
 
 body {
   background-color: #F2F3F5;
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
-  color: #6E7386;
-  font-size: 24px;
+  /*font-family: 'Roboto', sans-serif;
+  font-weight: 700;*/
 }
 
 .container {
@@ -21,11 +19,6 @@ a {
   margin: 0;
   padding: 0;
   text-decoration: none;
-  color: white;
-}
-
-a:hover {
-  color: rgba(255, 255, 255, 0.835);
 }
 
 hr {
@@ -35,8 +28,6 @@ hr {
 }
 
 .header {
-  font-size: 18px;
-  font-weight: 500;
   background-color: #474D59;
   width: 100%;
   height: auto;
@@ -50,6 +41,9 @@ hr {
   justify-content: space-between;
 }
 .header__logo {
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -63,19 +57,31 @@ hr {
   border-radius: 5px;
   padding: 5px;
   width: 150px;
+  justify-content: space-evenly;
 }
 .header__account p {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
   padding: 0;
   margin: 0;
+}
+.header__account li a {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
 }
 .header .dropdown {
   position: relative;
   display: none;
 }
 .header .dropbtn {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
   background-color: transparent;
   color: white;
-  font-size: 18px;
   position: relative;
   display: flex;
   cursor: pointer;
@@ -106,6 +112,12 @@ hr {
 .main {
   padding: 130px 0 15px 0;
 }
+.main h4 {
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #474D59;
+}
 .main .pagination {
   width: 100%;
   height: auto;
@@ -114,30 +126,35 @@ hr {
 }
 .main .pagination .tableList {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   margin: 0;
   padding: 0;
 }
 .main .pagination .tableList .objectBlock {
   position: relative;
-  max-width: 342px;
+  max-width: 220px;
   min-width: 100px;
   height: auto;
   padding: 0;
-  margin: 10px 0;
+  margin: 10px auto;
   border-radius: 30px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .main .outline-none {
-  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
 }
 .main .clickPageNumber {
   border: 1px solid gray;
+  border-right: 0;
   color: gray;
   width: 30px;
   height: 30px;
   text-align: center;
-  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
 }
 .main .pagination-block {
   justify-content: center;
@@ -145,14 +162,16 @@ hr {
   display: flex;
   margin-top: 50px;
   margin-bottom: 100px;
-  font-weight: 600;
 }
 .main .pagination-block .pageButton {
   border: 1px solid gray;
+  border-right: 0;
   width: 60px;
   height: 30px;
   text-align: center;
-  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
 }
 .main .pagination-block .pageButton:first-child {
   border-top-left-radius: 3px;
@@ -163,15 +182,12 @@ hr {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   color: #42B596;
+  border-right: 1px solid gray;
 }
 .main .pagination-block span {
   display: inline-block;
 }
 .main .pagination-block .pageButton {
-  color: grey;
-}
-.main .pagination-block span:hover {
-  cursor: pointer;
   color: #42B596;
 }
 .main .opacity {
@@ -199,11 +215,24 @@ hr {
   display: flex;
   flex-direction: column;
 }
-.main .favoriteList .fav-movie-block .details__new-favorite-info .remove-favorites {
+.main .favoriteList .fav-movie-block .details__new-favorite-info h1 {
+  font-family: "Roboto", sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: #474D59;
+}
+.main .favoriteList .fav-movie-block .details__new-favorite-info p {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
   font-size: 18px;
   color: #6E7386;
+}
+.main .favoriteList .fav-movie-block .details__new-favorite-info .remove-favorites {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #6E7386;
   border: 1px solid #6E7386;
-  font-weight: 600;
   align-self: flex-end;
 }
 
@@ -230,8 +259,8 @@ hr {
   align-items: center;
   padding: 15px;
   font-family: "Roboto", sans-serif;
+  font-size: 16px;
   font-weight: 400;
-  font-size: 18px;
   color: #fff;
   background-color: transparent;
 }
@@ -242,8 +271,8 @@ hr {
   align-items: center;
   padding: 15px;
   font-family: "Roboto", sans-serif;
+  font-size: 16px;
   font-weight: 400;
-  font-size: 18px;
   color: #fff;
   background-color: transparent;
 }
@@ -252,12 +281,15 @@ hr {
 }
 .movie-details-modal .details-modal-inner .details {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   margin-top: 120px;
 }
 .movie-details-modal .details-modal-inner .details__poster {
   width: 342px;
   height: 440px;
+}
+.movie-details-modal .details-modal-inner .details__poster img {
+  width: 100%;
 }
 .movie-details-modal .details-modal-inner .details__movie-info {
   margin-left: 5%;
@@ -274,13 +306,16 @@ hr {
   align-self: flex-end;
 }
 .movie-details-modal .details-modal-inner .details__new-movie-info .movie-title {
+  font-family: "Roboto", sans-serif;
   font-size: 36px;
+  font-weight: 600;
 }
 .movie-details-modal .details-modal-inner .details__new-movie-info .movie-ratings {
   display: flex;
   flex-direction: row;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
   font-weight: 400;
-  font-size: 24px;
   margin: 20px 0;
   justify-content: space-between;
 }
@@ -289,20 +324,33 @@ hr {
   padding: 0 25px;
 }
 .movie-details-modal .details-modal-inner .details__new-movie-info .movie-description {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
   font-weight: 400;
-  font-size: 18px;
 }
 .movie-details-modal .details-modal-inner .details__new-favorite-info {
   display: flex;
   flex-direction: column;
   color: white;
-  font-weight: 500;
+}
+.movie-details-modal .details-modal-inner .details__new-favorite-info .remove-favorites {
+  border: white solid 1px;
+  align-self: flex-end;
+  width: 100px;
+  background-color: transparent;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
 }
 
 @media all and (min-device-width: 720px) and (max-device-width: 1366px) {
   .header__logo {
     width: 180px;
-    font-size: 32px;
+    justify-content: space-evenly;
+    font-family: "Roboto", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
   }
   .header__logo img {
     height: 60px;
@@ -313,7 +361,9 @@ hr {
     padding: 0 20px 0 10px;
   }
   .header__account p {
-    font-size: 32px;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
   }
   .header__account a {
     font-size: 32px;
@@ -321,7 +371,7 @@ hr {
   .header__account img {
     height: 50px;
     width: auto;
-    margin-right: 10px;
+    margin-left: 10px;
   }
   .header .dropdown-content {
     width: 250px;
@@ -331,32 +381,45 @@ hr {
     margin: 20px 0;
   }
 
-  .main {
-    font-size: 32px;
+  .main h4 {
+    font-family: "Roboto", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
   }
   .main .pagination .tableList {
     justify-content: space-evenly;
   }
+  .main .pagination .tableList .objectBlock {
+    max-width: 300px;
+  }
   .main .pagination .pagination-block span {
-    font-size: 32px;
+    font-family: "Roboto", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    height: auto;
   }
   .main .pagination .pagination-block .pageButton, .main .pagination .pagination-block .clickPageNumber {
-    height: 80px;
     width: auto;
-    padding: 15px 20px 0;
+    padding: 20px;
   }
 
   .movie-details-modal .details-modal-inner .navigation {
     margin-top: 40px;
   }
   .movie-details-modal .details-modal-inner .navigation__back-to-list {
-    font-size: 24px;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
   }
   .movie-details-modal .details-modal-inner .navigation__next-movie {
-    font-size: 24px;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
   }
   .movie-details-modal .details-modal-inner .details__new-movie-info .add-to-favorites {
-    font-size: 24px;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
     margin-bottom: 10px;
   }
 }
@@ -396,6 +459,18 @@ hr {
     width: auto;
     height: auto;
     padding: 20px;
+  }
+  .main .favoriteList .details__new-favorite-info h1 {
+    font-family: "Roboto", sans-serif;
+    font-size: 34px;
+    font-weight: 500;
+    color: #474D59;
+  }
+  .main .favoriteList .details__new-favorite-info p {
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #6E7386;
   }
 
   .movie-details-modal .details-modal-inner .details {
@@ -472,13 +547,6 @@ hr {
   .main {
     padding-top: 100px;
   }
-  .main h1 {
-    font-size: 18px;
-    font-weight: 700;
-  }
-  .main p {
-    font-size: 12px;
-  }
   .main .pagination .tableList .objectBlock {
     border-radius: 10px;
   }
@@ -497,37 +565,54 @@ hr {
     margin: 0;
   }
   .main .favoriteList .fav-movie-block {
-    padding: 0;
+    padding: 10px 0;
+    height: 350px;
     width: 100%;
   }
   .main .favoriteList .fav-movie-block img {
-    border-radius: 0px;
+    border-radius: 5px;
     height: 210px;
     margin-right: 10px;
   }
+  .main .favoriteList .fav-movie-block .details__new-favorite-info h1 {
+    font-family: "Roboto", sans-serif;
+    font-size: 34px;
+    font-weight: 500;
+  }
+  .main .favoriteList .fav-movie-block .details__new-favorite-info p {
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+  }
   .main .favoriteList .fav-movie-block .details__new-favorite-info .remove-favorites {
-    font-size: 16px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
     margin-bottom: 5px;
     padding: 2px 5px;
   }
 
   .movie-details-modal .details-modal-inner .navigation__back-to-list {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    font-size: 16px;
     padding: 10px;
   }
   .movie-details-modal .details-modal-inner .navigation__back-to-list img {
     width: 10px;
   }
   .movie-details-modal .details-modal-inner .navigation__next-movie {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    font-size: 16px;
     padding: 10px;
   }
   .movie-details-modal .details-modal-inner .navigation__next-movie img {
@@ -540,18 +625,24 @@ hr {
     width: 100%;
   }
   .movie-details-modal .details-modal-inner .details__new-movie-info .add-to-favorites {
+    font-family: "Roboto", sans-serif;
     font-size: 16px;
+    font-weight: 400;
     margin-bottom: 10px;
   }
   .movie-details-modal .details-modal-inner .details__new-movie-info .movie-title {
     position: absolute;
     left: 30px;
     margin-top: 200px;
-    font-size: 24px;
+    font-family: "Roboto", sans-serif;
+    font-size: 34px;
+    font-weight: 500;
   }
   .movie-details-modal .details-modal-inner .details__new-movie-info .movie-ratings {
     flex-direction: column;
+    font-family: "Roboto", sans-serif;
     font-size: 16px;
+    font-weight: 400;
   }
   .movie-details-modal .details-modal-inner .details__new-movie-info .movie-ratings span {
     border-right: 0;
@@ -564,6 +655,11 @@ hr {
     width: 100%;
     padding-right: 60px;
     line-height: 20px;
+  }
+  .movie-details-modal .details-modal-inner .details__new-movie-info .movie-description-box .movie-description {
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
   }
 }
 

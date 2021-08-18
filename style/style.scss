@@ -1,41 +1,59 @@
+@mixin movie-title{
+    font-family: 'Roboto', sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+}
+@mixin movie-title-mini{
+    font-family: 'Roboto', sans-serif;
+    font-size: 34px;
+    font-weight: 500;
+}
+@mixin title{
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+}
+@mixin title-mini{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+}
+@mixin text{
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+}
+@mixin text-mini{
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+}
 *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-
 body{
     background-color: #F2F3F5;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 700;
-    color: #6E7386;
-    font-size: 24px;
+    /*font-family: 'Roboto', sans-serif;
+    font-weight: 700;*/
 }
-
 .container{
     max-width: 1440px;
     margin: 0 auto;
 }
-
 a{
     margin: 0;
     padding: 0;
     text-decoration: none;
-    color: white;
 }
-a:hover{
-    color: rgba(255, 255, 255, 0.835);
-}
-
+a:hover{}
 hr{
     size: 2px;
     width: 100%;
     color: white
 }
-
 .header{
-    font-size: 18px;
-    font-weight: 500;
     background-color: #474D59;
     width: 100%;
     height: auto;
@@ -46,10 +64,9 @@ hr{
     &__inner{
         display: flex;
         justify-content: space-between;
-        
     }
-
     &__logo{
+        @include title;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -63,20 +80,22 @@ hr{
         border-radius: 5px;
         padding: 5px;
         width: 150px;
+        justify-content: space-evenly;
         p{
+            @include text;
             padding: 0;
             margin: 0;
         }
+        li{a{@include text; color: white}}
     }
-
     .dropdown {
         position: relative;
         display: none;
     }
     .dropbtn {
+        @include text;
         background-color: transparent;
         color: white;
-        font-size: 18px;
         position: relative;
         display: flex;
         cursor: pointer;
@@ -93,22 +112,19 @@ hr{
         li{
             list-style: none;
             padding: 10px 0 20px 0;
-            
         }
     }
-
     .dropdown:checked~ul.dropdown-content {
         display: flex;
         flex-direction: column;
-       text-align: center;
+        text-align: center;
         background-color: #474D59;
         border-radius: 5px;
         z-index: 1;
     }
-    
 }
-
-.main{  
+.main{
+    h4{@include title; color: #474D59;}
     padding: 130px 0 15px 0;
     .pagination {
         width: 100%;
@@ -117,34 +133,33 @@ hr{
         position: relative;
         .tableList {
             display: flex;
-            justify-content: space-around;
+            justify-content: flex-start;
             margin: 0;
             padding: 0; 
             .objectBlock {
                 position: relative;
-                max-width: 342px;
+                max-width: 220px;
                 // width: 342px;
                 min-width: 100px;
                 height: auto;
                 padding: 0;
-                margin: 10px 0;
+                margin: 10px auto;
                 border-radius: 30px;
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             }
         }
     }
-    
     .outline-none{
-        font-size: 18px;
+        @include text;
     }
     .clickPageNumber {
         border: 1px solid gray;
+        border-right: 0;
         color: gray;
         width: 30px;
         height: 30px;
         text-align: center;
-        font-size: 18px;
-        // font-weight: 400;
+        @include text;
     }
     .pagination-block {
         justify-content: center;
@@ -152,13 +167,13 @@ hr{
         display: flex;
         margin-top: 50px;
         margin-bottom: 100px;
-        font-weight: 600;
         .pageButton {
             border: 1px solid gray;
+            border-right: 0;
             width: 60px;
             height: 30px;
             text-align: center;
-            font-size: 18px;
+            @include text;
         }
         .pageButton:first-child{
             border-top-left-radius: 3px;
@@ -169,17 +184,14 @@ hr{
             border-top-right-radius: 3px;
             border-bottom-right-radius: 3px;
             color: #42B596;
+            border-right: 1px solid gray;
         }
     }
     .pagination-block span {
         display: inline-block;
     }
     .pagination-block .pageButton {
-        color: grey;
-    }
-    .pagination-block span:hover {
-        cursor: pointer;    
-        color: #42B596;
+        color: #42B596
     }
     .opacity {
         opacity: 0;
@@ -189,7 +201,6 @@ hr{
         outline: none;
         user-select: none; 
     }
-
     .favoriteList{
         margin: 30px;
         display: block;
@@ -204,18 +215,18 @@ hr{
             .details__new-favorite-info {
                 display: flex;
                 flex-direction: column;
+                h1{@include movie-title; color: #474D59}
+                p{@include title-mini; color: #6E7386}
                 .remove-favorites {
-                    font-size: 18px;
+                    @include text;
                     color: #6E7386;
                     border: 1px solid #6E7386;
-                    font-weight: 600;
                     align-self: flex-end;
                 }
             }
         }
     }
 }
-
 .movie-details-modal{
     background-size: cover;
     background-repeat: no-repeat;
@@ -235,9 +246,7 @@ hr{
                 justify-content: space-between;
                 align-items: center;
                 padding: 15px;
-                font-family: 'Roboto', sans-serif;
-                font-weight: 400;
-                font-size: 18px;
+                @include text;
                 color: #fff;
                 background-color: transparent;
             }
@@ -247,9 +256,7 @@ hr{
                 justify-content: space-between;
                 align-items: center;
                 padding: 15px;
-                font-family: 'Roboto', sans-serif;
-                font-weight: 400;
-                font-size: 18px;
+                @include text;
                 color: #fff;
                 background-color: transparent;
                 img{transform: rotate(0.5turn);}
@@ -257,11 +264,14 @@ hr{
         }
         .details{
             display: flex;
-            justify-content: center;
+            justify-content: space-evenly;
             margin-top: 120px;
             &__poster{
                 width: 342px;
                 height: 440px;
+                img{
+                    width: 100%;
+                }
             }
             &__movie-info{
                 margin-left: 5%;
@@ -276,14 +286,11 @@ hr{
                     opacity: 80%;
                     align-self: flex-end;
                 }
-                .movie-title{
-                    font-size: 36px;
-                }
+                .movie-title{@include movie-title}
                 .movie-ratings{
                     display: flex;
                     flex-direction: row;
-                    font-weight: 400;
-                    font-size: 24px;
+                    @include text;
                     margin: 20px 0;
                     justify-content: space-between;
                     span{
@@ -292,15 +299,21 @@ hr{
                     }
                 }
                 .movie-description{
-                    font-weight: 400;
-                    font-size: 18px;
+                    @include text;
                 }
             }
             &__new-favorite-info{
                 display: flex;
                 flex-direction: column;
                 color: white;
-                font-weight: 500;
+                .remove-favorites{
+                    border: white solid 1px;
+                    align-self: flex-end;
+                    width: 100px;
+                    background-color: transparent;
+                    @include text;
+                    color: white;
+                }
             }
         }
     }
@@ -311,7 +324,8 @@ and (max-device-width: 1366px){
     .header{
         &__logo{
             width: 180px;
-            font-size: 32px;
+            justify-content: space-evenly;
+            @include title;
             img{
                 height: 60px;
                 width: auto;
@@ -320,12 +334,13 @@ and (max-device-width: 1366px){
         &__account{
             width: auto;
             padding: 0 20px 0 10px;
-            p{font-size: 32px;}
+            p{@include text}
             a{font-size: 32px;}
             img{
                 height: 50px;
                 width: auto;
-                margin-right: 10px;}
+                margin-left: 10px;
+            }
         }
         .dropdown-content{
             width: 250px;
@@ -336,17 +351,19 @@ and (max-device-width: 1366px){
         }
     }
     .main{
-        font-size: 32px;
+        h4{@include title}
         .pagination{
             .tableList{
                 justify-content: space-evenly;
+                .objectBlock{
+                    max-width: 300px;
+                }
             }
             .pagination-block{
-                span{font-size: 32px;}
+                span{@include title; height: auto;}
                 .pageButton, .clickPageNumber{
-                    height: 80px;
                     width: auto;
-                    padding: 15px 20px 0;
+                    padding: 20px;
                 }
             }
         }
@@ -356,14 +373,16 @@ and (max-device-width: 1366px){
             .navigation {
                 margin-top: 40px;
                 &__back-to-list{
-                    font-size: 24px;
+                    @include text
                 }
                 &__next-movie{
-                    font-size: 24px;
+                    @include text
                 }
             }
+            .details{
+            }
             .details__new-movie-info .add-to-favorites{
-                font-size: 24px;
+                @include text;
                 margin-bottom: 10px;
             }
         }
@@ -412,6 +431,12 @@ and (max-device-width: 720px){
                 padding: 20px;
             }
         }
+        .favoriteList{
+            .details__new-favorite-info{
+                h1{@include movie-title-mini;color: #474D59}
+                p{@include text-mini;color: #6E7386}
+            }
+        }
     }
     .movie-details-modal {
         .details-modal-inner {
@@ -421,7 +446,6 @@ and (max-device-width: 720px){
                     width: 100%;
                 }
             }
-
             .navigation {
                 &__back-to-list {
                     border-top-left-radius: 10px;
@@ -444,7 +468,6 @@ and (max-device-width: 720px){
                     }
                 }
             }
-
             .details__new-movie-info {
                 .add-to-favorites {
                     font-size: 18px;
@@ -498,13 +521,6 @@ and (max-device-width: 375px){
         }
     }
     .main{
-        h1{
-            font-size: 18px;
-            font-weight: 700;
-        }
-        p{
-            font-size: 12px;
-        }
         padding-top: 100px;
         .pagination{
             .tableList{
@@ -527,16 +543,19 @@ and (max-device-width: 375px){
         .favoriteList{
             margin: 0;
             .fav-movie-block {
-                padding: 0;
+                padding: 10px 0;
+                height: 350px;
                 width: 100%;
                 img {
-                    border-radius: 0px;
+                    border-radius: 5px;
                     height: 210px;
                     margin-right: 10px;
                 }
                 .details__new-favorite-info {
+                    h1{@include movie-title-mini}
+                    p{@include text-mini}
                     .remove-favorites {
-                        font-size: 16px;
+                        @include title-mini;
                         margin-bottom: 5px;
                         padding: 2px 5px;
                     }
@@ -548,22 +567,22 @@ and (max-device-width: 375px){
         .details-modal-inner {
             .navigation {
                 &__back-to-list {
+                    @include title-mini;
                     border-top-left-radius: 10px;
                     border-bottom-left-radius: 10px;
                     border-top-right-radius: 0;
                     border-bottom-right-radius: 0;
-                    font-size: 16px;
                     padding: 10px;
                     img{
                         width: 10px;
                     }
                 }
                 &__next-movie {
+                    @include title-mini;
                     border-top-right-radius: 10px;
                     border-bottom-right-radius: 10px;
                     border-top-left-radius: 0;
                     border-bottom-left-radius: 0;
-                    font-size: 16px;
                     padding: 10px;
                     img{
                         width: 10px;
@@ -578,18 +597,18 @@ and (max-device-width: 375px){
             }
             .details__new-movie-info {
                 .add-to-favorites {
-                    font-size: 16px;
+                    @include text;
                     margin-bottom: 10px;
                 }
                 .movie-title{
                     position: absolute;
                     left: 30px;
                     margin-top: 200px;
-                    font-size: 24px;
+                    @include movie-title-mini
                 }
                 .movie-ratings{
                     flex-direction: column;
-                    font-size: 16px;
+                    @include text;
                     span{
                         border-right: 0;
                         padding: 0;
@@ -602,6 +621,7 @@ and (max-device-width: 375px){
                     width: 100%;
                     padding-right: 60px;
                     line-height: 20px;
+                    .movie-description{@include text-mini;}
                 }
             }
         }

@@ -34,10 +34,11 @@
           next.style.display = "none";
         } finally {
           let btn = current_movie_info.getElementsByTagName('button').item(0)
-
           if(btn.classList.contains("add-to-favorites")){
             if(localStorage.getItem(current_poster.id)){
               btn.style.visibility = 'hidden'
+            } else {
+              btn.style.visibility = 'visible'
             }
           }
           openDetailsModal(current_poster, current_movie_info);
@@ -52,12 +53,10 @@
         try {
           if (window.location.href.indexOf("pages") !== -1)  {
             next_poster = current_poster.parentElement.nextSibling.firstChild
-            /*console.log(next_poster)*/
             next_info = current_movie_info.parentElement.nextSibling.firstChild.nextSibling
             next.style.display = "flex";
           } if (window.location.href.indexOf("index")!== -1) {
             next_poster = current_poster.nextSibling.nextSibling
-            /*console.log(next_poster)*/
             next_info = current_movie_info.nextSibling.nextSibling
             next.style.display = "flex";
           }
@@ -66,12 +65,13 @@
           next_info = 1
           next.style.display = "none";
         } finally {
-          console.log(current_movie_info)
           let btn = current_movie_info.getElementsByTagName('button').item(0)
-          /*console.log(current_poster)*/
-          if(localStorage.getItem(current_poster.id)){
-            /*console.log('item in local', btn)*/
-            btn.style.visibility = 'hidden'
+          if(btn.classList.contains("add-to-favorites")){
+            if(localStorage.getItem(current_poster.id)){
+              btn.style.visibility = 'hidden'
+            } else {
+              btn.style.visibility = 'visible'
+            }
           }
           openDetailsModal(current_poster, current_movie_info)
         }
@@ -113,6 +113,8 @@
         modal.style.display = "none";
         document.body.style.overflow = 'visible';
         // console.log('close')
+
+
       }
     });
   }
@@ -151,20 +153,15 @@
   addToFavorites();
 
   if (window.location.href.indexOf("pages") === -1) {
-
     function Pagination() {
-      //  getting buttons from DOM
       const firstButton = document.getElementById("button_first");
       const prevButton = document.getElementById("button_prev");
       const nextButton = document.getElementById("button_next");
       const lastButton = document.getElementById("button_last");
       const clickPageNumber = document.querySelectorAll(".clickPageNumber");
-
-
       let films_number = 1080;
       let current_page = 1;
-      let records_per_page = 20;
-
+      let records_per_page = 18;
       this.init = function () {
         changePage(1);
         pageNumbers(1);
@@ -344,7 +341,7 @@
             let poster = obj.poster
             let newDiv = document.createElement("div");
             newDiv.classList.add("fav-movie-block");
-            newDiv.innerHTML = `<img class="objectBlock col-5 col-md-4" src="${poster}" id="${img_id}" alt="fav-poster"><div class="details__new-favorite-info"><button class="remove-favorites btn btn-light" id="remove-from-favorites">Unfavorite</button><h1>${title}</h1><p>${info}</p></div>`;
+            newDiv.innerHTML = `<img class="objectBlock col-5 col-md-3" src="${poster}" id="${img_id}" alt="fav-poster"><div class="details__new-favorite-info"><button class="remove-favorites btn btn-light" id="remove-from-favorites">Unfavorite</button><h1>${title}</h1><p>${info}</p></div>`;
             listOfFavorites.appendChild(newDiv)
           }
         }
@@ -356,10 +353,17 @@
               e.target.nodeName === "BUTTON" &&
               e.target.classList.contains("remove-favorites")
           ) {
-            let m_div = e.target.parentElement.parentElement
-            let back_img = m_div.getElementsByTagName('img')[0]
-            let back_id = back_img.id
-            localStorage.removeItem(back_id);
+            if (window.location.href.indexOf("index")!== -1){
+              let m_div = e.target.parentElement.parentElement
+              let back_img = m_div.getElementsByTagName('img')[0]
+              let back_id = back_img.id;
+              localStorage.removeItem(back_id);
+            } if (window.location.href.indexOf("pages")!== -1){
+              let m_div = e.target.parentElement.parentElement.parentElement
+              let back_img = m_div.getElementsByTagName('img')[0]
+              let back_id = back_img.id;
+              localStorage.removeItem(back_id);
+            }
             location.reload()
           }
         })
