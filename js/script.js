@@ -16,14 +16,6 @@
         current_poster = e.target
         current_movie_info = e.target.nextSibling
 
-        /*HEREEEEEEEEEEEEE!*/
-
-
-        /*console.log(current_poster)
-        console.log(current_movie_info)
-        console.log(current_poster.parentElement.nextSibling.firstChild)
-        console.log(current_movie_info.parentElement.nextSibling.firstChild.nextSibling)*/
-
         try {
           if (window.location.href.indexOf("pages") !== -1) {
             next_poster = current_poster.parentElement.nextSibling.firstChild
@@ -42,9 +34,11 @@
           next.style.display = "none";
         } finally {
           let btn = current_movie_info.getElementsByTagName('button').item(0)
-          /*console.log(current_poster)*/
-          if(localStorage.getItem(current_poster.id)){
-            btn.style.visibility = 'hidden'
+
+          if(btn.classList.contains("add-to-favorites")){
+            if(localStorage.getItem(current_poster.id)){
+              btn.style.visibility = 'hidden'
+            }
           }
           openDetailsModal(current_poster, current_movie_info);
         }
@@ -139,14 +133,12 @@
         let storage = {};
 
         if (localStorage.getItem(id)){
-          /*let btn = document.getElementById(`favorite-button-${id}`)
-          console.log(btn)*/
-          /*btn.style.visibility = 'hidden'*/
           alert(`Movie with this id - ${id} already in list` )
         } else {
           storage['title'] = m_title.innerHTML
           storage['info'] = m_description.innerHTML
           storage['poster'] = m_poster.src
+          console.log(storage['title'],storage['info'])
           localStorage.setItem(id, JSON.stringify(storage))
         }
         /*localStorage.clear()*/
@@ -341,23 +333,22 @@
       };
 
       const listOfFavorites = document.getElementById("favorite_list");
-
       let listChangeFavorite = function () {
-        for (let i = 0; i < localStorage.length; i++) {
-          let obj = JSON.parse(localStorage.getItem(localStorage.key(i)))
-          let img_id = localStorage.key(i)
-          /*console.log(localStorage.key(i))*/
-          let title = obj.title
-          /*console.log(title)*/
-          let info = obj.info
-          let poster = obj.poster
-          let newDiv = document.createElement("div");
-          newDiv.classList.add("fav-movie-block");
-          newDiv.innerHTML = `<img class="objectBlock" src="${poster}" id="${img_id}" alt="fav-poster"><div class="details__new-favorite-info"><button class="remove-favorites btn btn-light" id="remove-from-favorites">Unfavorite</button><h1>${title}</h1><p>${info}</p></div>`;
-          listOfFavorites.appendChild(newDiv)
+        for (let i in localStorage) {
+          let regX = /^[0-9]{6}$/;
+          if (i.match(regX)) {
+            let obj = JSON.parse(localStorage.getItem(i))
+            let img_id = i
+            let title = obj.title
+            let info = obj.info
+            let poster = obj.poster
+            let newDiv = document.createElement("div");
+            newDiv.classList.add("fav-movie-block");
+            newDiv.innerHTML = `<img class="objectBlock col-5 col-md-4" src="${poster}" id="${img_id}" alt="fav-poster"><div class="details__new-favorite-info"><button class="remove-favorites btn btn-light" id="remove-from-favorites">Unfavorite</button><h1>${title}</h1><p>${info}</p></div>`;
+            listOfFavorites.appendChild(newDiv)
+          }
         }
       }
-      listChangeFavorite()
 
       let removeFromFavorite = function () {
         document.addEventListener("click", function (e) {

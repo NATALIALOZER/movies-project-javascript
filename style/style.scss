@@ -199,7 +199,6 @@ hr{
             padding: 30px;
             img {
                 border-radius: 20px;
-                border: #474D59 1px solid;
                 margin-right: 30px;
             }
             .details__new-favorite-info {
@@ -208,7 +207,7 @@ hr{
                 .remove-favorites {
                     font-size: 18px;
                     color: #6E7386;
-                    background-color: antiquewhite;
+                    border: 1px solid #6E7386;
                     font-weight: 600;
                     align-self: flex-end;
                 }
@@ -392,7 +391,7 @@ and (max-device-width: 720px){
         .dropdown:checked~ul.dropdown-content {
             border-radius: 0;
         }
-    }у
+    }
     .main{
         padding-top: 50px;
         .pagination{
@@ -499,7 +498,14 @@ and (max-device-width: 375px){
         }
     }
     .main{
-        padding-top: 50px;
+        h1{
+            font-size: 18px;
+            font-weight: 700;
+        }
+        p{
+            font-size: 12px;
+        }
+        padding-top: 100px;
         .pagination{
             .tableList{
                 .objectBlock{
@@ -516,6 +522,25 @@ and (max-device-width: 375px){
                 width: auto;
                 height: auto;
                 padding: 10px;
+            }
+        }
+        .favoriteList{
+            margin: 0;
+            .fav-movie-block {
+                padding: 0;
+                width: 100%;
+                img {
+                    border-radius: 0px;
+                    height: 210px;
+                    margin-right: 10px;
+                }
+                .details__new-favorite-info {
+                    .remove-favorites {
+                        font-size: 16px;
+                        margin-bottom: 5px;
+                        padding: 2px 5px;
+                    }
+                }
             }
         }
     }
