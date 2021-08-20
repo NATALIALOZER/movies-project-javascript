@@ -82,11 +82,9 @@
   let openDetailsModal = function (poster, movie_info) {
     let modal = document.getElementById("details-modal");
     let posterBox = document.getElementById("poster-box");
-    let infoBox = document.getElementById("info-box");
-
+    let infoBox = document.getElementById("info-box")
     modal.style.display = "flex";
     modal.style.backgroundImage = `linear-gradient( rgba(9, 14, 26, 0.8), rgba(0, 0, 0, 0.5) ), url("${poster.src}")`
-
     document.body.style.overflow = 'hidden';
 
     let copyPoster = poster.cloneNode(true);
@@ -159,9 +157,9 @@
       const nextButton = document.getElementById("button_next");
       const lastButton = document.getElementById("button_last");
       const clickPageNumber = document.querySelectorAll(".clickPageNumber");
-      let films_number = 1080;
+      let films_number;
       let current_page = 1;
-      let records_per_page = 18;
+      let records_per_page = 20;
       this.init = function () {
         changePage(1);
         pageNumbers(1);
@@ -283,10 +281,9 @@
         pageNumber.innerHTML = "";
         let int_current_page = +current_page
         if (numPages() < 3) {
-          for (let i = 1; i < numPages(); i++) {
-            pageNumber.innerHTML +=
-                "<span class='clickPageNumber'>" + i + "</span>";
-          }
+          let pageNum = numPages()
+          pageNum.forEach(el => {pageNumber.innerHTML +=
+              "<span class='clickPageNumber'>" + el + "</span>";})
         } else {
           if (int_current_page <= 2) {
             for (let i = 1; i <= 3; i++) {
@@ -295,7 +292,6 @@
             pageNumber.innerHTML += "<span class='clickPageNumber'>...</span>";
           }
           if (int_current_page > 2 && int_current_page <= (numPages()) - 2) {
-
             pageNumber.innerHTML += "<span class='clickPageNumber'>...</span>";
             for (let i = int_current_page - 1; i <= int_current_page + 1; i++) {
               pageNumber.innerHTML += "<span class='clickPageNumber'>" + i + "</span>";
